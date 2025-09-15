@@ -268,10 +268,6 @@ class TornekoItemApp {
     const name = document.createElement('div');
     name.className = 'item-name';
     name.textContent = item.name;
-    name.addEventListener('click', (e) => {
-      e.stopPropagation();
-      this.showItemDetails(item);
-    });
 
     const category = document.createElement('span');
     category.className = 'item-category';
@@ -280,6 +276,14 @@ class TornekoItemApp {
     const price = document.createElement('div');
     price.className = 'item-price';
     price.textContent = `${item.price}G`;
+    
+    const detailButton = document.createElement('button');
+    detailButton.className = 'detail-button';
+    detailButton.textContent = '詳細';
+    detailButton.addEventListener('click', (e) => {
+      e.stopPropagation();
+      this.showItemDetails(item);
+    });
 
     content.appendChild(name);
     content.appendChild(category);
@@ -287,11 +291,12 @@ class TornekoItemApp {
     itemDiv.appendChild(checkbox);
     itemDiv.appendChild(content);
     itemDiv.appendChild(price);
+    itemDiv.appendChild(detailButton);
 
-    // アイテム全体をクリックしてもモーダルを開く
+    // アイテム全体をクリックしてチェックボックスを切り替え
     itemDiv.addEventListener('click', (e) => {
-      if (e.target !== checkbox) {
-        this.showItemDetails(item);
+      if (e.target !== checkbox && e.target !== detailButton) {
+        this.toggleIdentified(item.name);
       }
     });
 
@@ -372,6 +377,14 @@ class TornekoItemApp {
     const price = document.createElement('div');
     price.className = 'price-result-price';
     price.textContent = `${item.price}G`;
+    
+    const detailButton = document.createElement('button');
+    detailButton.className = 'detail-button';
+    detailButton.textContent = '詳細';
+    detailButton.addEventListener('click', (e) => {
+      e.stopPropagation();
+      this.showItemDetails(item);
+    });
 
     content.appendChild(name);
     content.appendChild(effect);
@@ -379,10 +392,13 @@ class TornekoItemApp {
 
     resultDiv.appendChild(checkbox);
     resultDiv.appendChild(content);
+    resultDiv.appendChild(detailButton);
 
     resultDiv.addEventListener('click', (e) => {
-      if (e.target !== checkbox) {
-        this.showItemDetails(item);
+      if (e.target !== checkbox && e.target !== detailButton) {
+        this.toggleIdentified(item.name);
+        // 値段検索結果も更新
+        resultDiv.className = `price-result-item ${this.identifiedItems.has(item.name) ? 'identified' : ''}`;
       }
     });
 
