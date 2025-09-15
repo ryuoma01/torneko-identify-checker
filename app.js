@@ -79,6 +79,14 @@ class TornekoItemApp {
     document.getElementById('filter-buy').addEventListener('change', () => this.searchByPrice());
     document.getElementById('filter-sell').addEventListener('change', () => this.searchByPrice());
 
+    // カテゴリジャンプボタン
+    document.querySelectorAll('.category-jump-btn').forEach(button => {
+      button.addEventListener('click', (e) => {
+        const category = e.target.dataset.category;
+        this.jumpToCategory(category);
+      });
+    });
+
     // アイテム詳細モーダル関連
     const itemModal = document.getElementById('item-modal');
     const closeItemModal = document.querySelector('.close');
@@ -228,6 +236,7 @@ class TornekoItemApp {
   createCategorySection(category, items) {
     const section = document.createElement('div');
     section.className = 'category-section';
+    section.id = `category-${category}`;
     
     const header = document.createElement('h3');
     header.textContent = `${category} (${items.length})`;
@@ -445,9 +454,13 @@ class TornekoItemApp {
 
     itemName.textContent = item.name;
     itemEffect.textContent = item.effect;
-    // モーダルでは買値の基本値を表示
-    const currentPrice = this.getCurrentPrice(item, 'buy', '0');
-    itemPrice.textContent = currentPrice;
+    // モーダルでは買値・売値両方を表示
+    const buyPrice = this.getCurrentPrice(item, 'buy', '0');
+    const sellPrice = this.getCurrentPrice(item, 'sell', '0');
+    itemPrice.innerHTML = `
+      <div class="modal-price-item buy-price">買値: ${buyPrice}G</div>
+      <div class="modal-price-item sell-price">売値: ${sellPrice}G</div>
+    `;
 
     modal.classList.add('show');
     document.body.style.overflow = 'hidden'; // スクロールを防ぐ
@@ -533,6 +546,26 @@ class TornekoItemApp {
     }
     
     return false;
+  }
+
+  // カテゴリにジャンプする
+  jumpToCategory(category) {
+    const categoryElement = document.getElementById(`category-${category}`);
+    if (categoryElement) {
+      // スムーズスクロールでカテゴリセクションにジャンプ
+      categoryElement.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'start' 
+      });
+      
+      // ジャンプ先をハイライト（一時的な視覚効果）
+      categoryElement.style.transition = 'background-color 0.3s ease';
+      categoryElement.style.backgroundColor = 'rgba(128, 55, 89, 0.1)';
+      
+      setTimeout(() => {
+        categoryElement.style.backgroundColor = '';
+      }, 1000);
+    }
   }
 }
 

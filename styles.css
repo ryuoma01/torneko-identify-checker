@@ -316,6 +316,46 @@ header h1 {
   color: var(--accent-color);
 }
 
+/* カテゴリジャンプボタン */
+.category-jump-container {
+  margin-bottom: 20px;
+}
+
+.category-jump-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 12px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+}
+
+.category-jump-btn {
+  padding: 6px 12px;
+  font-size: 14px;
+  font-weight: 500;
+  background-color: var(--bg-color);
+  color: var(--main-color);
+  border: 1px solid var(--main-color);
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 50px;
+  text-align: center;
+}
+
+.category-jump-btn:hover {
+  background-color: var(--accent-color);
+  color: var(--bg-color);
+  border-color: var(--accent-color);
+  transform: translateY(-1px);
+}
+
+.category-jump-btn:active {
+  transform: translateY(0);
+}
+
 .price-search-container input {
   flex: 1;
   padding: 16px;
@@ -486,17 +526,24 @@ header h1 {
 
 #modal-item-price {
   font-size: 16px;
-  color: var(--accent-color);
   font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
-#modal-item-price::before {
-  content: "値段: ";
-  color: var(--main-color);
+.modal-price-item {
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 1.2;
 }
 
-#modal-item-price::after {
-  content: "G";
+.modal-price-item.buy-price {
+  color: var(--accent-color);
+}
+
+.modal-price-item.sell-price {
+  color: #4a90e2;
 }
 
 /* リセット確認モーダル */
