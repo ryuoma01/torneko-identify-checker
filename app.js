@@ -74,6 +74,10 @@ class TornekoItemApp {
         this.searchByPrice();
       }
     });
+    
+    // 価格フィルターチェックボックス
+    document.getElementById('filter-buy').addEventListener('change', () => this.searchByPrice());
+    document.getElementById('filter-sell').addEventListener('change', () => this.searchByPrice());
 
     // アイテム詳細モーダル関連
     const itemModal = document.getElementById('item-modal');
@@ -273,9 +277,21 @@ class TornekoItemApp {
     category.className = 'item-category';
     category.textContent = item.category;
 
-    const price = document.createElement('div');
-    price.className = 'item-price';
-    price.textContent = `${item.price}G`;
+    const priceContainer = document.createElement('div');
+    priceContainer.className = 'item-price-container';
+    
+    const buyPrice = document.createElement('div');
+    buyPrice.className = 'item-price buy-price';
+    const buyValue = this.getCurrentPrice(item, 'buy', '0');
+    buyPrice.textContent = `買:${buyValue}G`;
+    
+    const sellPrice = document.createElement('div');
+    sellPrice.className = 'item-price sell-price';
+    const sellValue = this.getCurrentPrice(item, 'sell', '0');
+    sellPrice.textContent = `売:${sellValue}G`;
+    
+    priceContainer.appendChild(buyPrice);
+    priceContainer.appendChild(sellPrice);
     
     const detailButton = document.createElement('button');
     detailButton.className = 'detail-button';
@@ -290,7 +306,7 @@ class TornekoItemApp {
 
     itemDiv.appendChild(checkbox);
     itemDiv.appendChild(content);
-    itemDiv.appendChild(price);
+    itemDiv.appendChild(priceContainer);
     itemDiv.appendChild(detailButton);
 
     // アイテム全体をクリックしてチェックボックスを切り替え
@@ -329,7 +345,10 @@ class TornekoItemApp {
       return;
     }
 
-    const matchingItems = this.items.filter(item => item.price === price);
+    // 買値・売値両方で検索（全ての補正値・残回数で検索）
+    const matchingItems = this.items.filter(item => {
+      return this.itemMatchesPrice(item, price);
+    });
 
     if (matchingItems.length === 0) {
       resultsDiv.innerHTML = `
@@ -374,9 +393,21 @@ class TornekoItemApp {
     effect.className = 'price-result-effect';
     effect.textContent = item.effect;
 
-    const price = document.createElement('div');
-    price.className = 'price-result-price';
-    price.textContent = `${item.price}G`;
+    const priceContainer = document.createElement('div');
+    priceContainer.className = 'price-result-price-container';
+    
+    const buyPrice = document.createElement('div');
+    buyPrice.className = 'price-result-price buy-price';
+    const buyValue = this.getCurrentPrice(item, 'buy', '0');
+    buyPrice.textContent = `買値: ${buyValue}G`;
+    
+    const sellPrice = document.createElement('div');
+    sellPrice.className = 'price-result-price sell-price';
+    const sellValue = this.getCurrentPrice(item, 'sell', '0');
+    sellPrice.textContent = `売値: ${sellValue}G`;
+    
+    priceContainer.appendChild(buyPrice);
+    priceContainer.appendChild(sellPrice);
     
     const detailButton = document.createElement('button');
     detailButton.className = 'detail-button';
@@ -388,7 +419,7 @@ class TornekoItemApp {
 
     content.appendChild(name);
     content.appendChild(effect);
-    content.appendChild(price);
+    content.appendChild(priceContainer);
 
     resultDiv.appendChild(checkbox);
     resultDiv.appendChild(content);
@@ -414,7 +445,9 @@ class TornekoItemApp {
 
     itemName.textContent = item.name;
     itemEffect.textContent = item.effect;
-    itemPrice.textContent = item.price;
+    // モーダルでは買値の基本値を表示
+    const currentPrice = this.getCurrentPrice(item, 'buy', '0');
+    itemPrice.textContent = currentPrice;
 
     modal.classList.add('show');
     document.body.style.overflow = 'hidden'; // スクロールを防ぐ
@@ -460,6 +493,46 @@ class TornekoItemApp {
     if (priceInput.value) {
       this.searchByPrice();
     }
+  }
+
+  // 現在の価格を取得する（新しいデータ構造対応）
+  getCurrentPrice(item, priceType = 'buy', modifier = '0') {
+    if (!item.prices || !item.prices[priceType]) {
+      return 0;
+    }
+    
+    // 指定された修正値の価格を取得、なければ基本価格(0)を取得
+    return item.prices[priceType][modifier] || item.prices[priceType]['0'] || 0;
+  }
+
+  // アイテムが指定価格にマッチするかチェック（フィルター対応）
+  itemMatchesPrice(item, targetPrice) {
+    if (!item.prices) return false;
+    
+    const filterBuy = document.getElementById('filter-buy').checked;
+    const filterSell = document.getElementById('filter-sell').checked;
+    
+    // 両方チェックなしの場合はマッチしない
+    if (!filterBuy && !filterSell) return false;
+    
+    const buyPrices = item.prices.buy || {};
+    const sellPrices = item.prices.sell || {};
+    
+    // 買値でマッチするかチェック
+    if (filterBuy) {
+      for (const price of Object.values(buyPrices)) {
+        if (price === targetPrice) return true;
+      }
+    }
+    
+    // 売値でマッチするかチェック
+    if (filterSell) {
+      for (const price of Object.values(sellPrices)) {
+        if (price === targetPrice) return true;
+      }
+    }
+    
+    return false;
   }
 }
 

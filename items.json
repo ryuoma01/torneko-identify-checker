@@ -1,219 +1,585 @@
 [
   {
-    "name": "火炎草",
-    "reading": "かえんそう",
-    "price": 500,
-    "effect": "飲むと火を吐いて前方の敵に大ダメージを与える",
-    "category": "草"
-  },
-  {
-    "name": "氷結草",
-    "reading": "ひょうけつそう",
-    "price": 400,
-    "effect": "飲むと氷を吐いて前方の敵を凍らせる",
-    "category": "草"
-  },
-  {
-    "name": "毒草",
-    "reading": "どくそう",
-    "price": 100,
-    "effect": "飲むと力が1下がってしまう",
-    "category": "草"
+    "name": "命の草",
+    "reading": "いのちのくさ",
+    "category": "草",
+    "effect": "飲むと最大HPが5上がる",
+    "priceType": "fixed",
+    "prices": {
+      "buy": { "0": 100 },
+      "sell": { "0": 50 }
+    }
   },
   {
     "name": "薬草",
     "reading": "やくそう",
-    "price": 300,
+    "category": "草",
     "effect": "飲むとHPを50回復する",
-    "category": "草"
+    "priceType": "fixed",
+    "prices": {
+      "buy": { "0": 100 },
+      "sell": { "0": 50 }
+    }
+  },
+  {
+    "name": "めぐすり草",
+    "reading": "めぐすりそう",
+    "category": "草",
+    "effect": "飲むと目がよくなる",
+    "priceType": "fixed",
+    "prices": {
+      "buy": { "0": 100 },
+      "sell": { "0": 50 }
+    }
   },
   {
     "name": "弟切草",
     "reading": "おとうとぎりそう",
-    "price": 500,
+    "category": "草",
     "effect": "飲むと最大HPが3上がる",
-    "category": "草"
+    "priceType": "fixed",
+    "prices": {
+      "buy": { "0": 200 },
+      "sell": { "0": 100 }
+    }
   },
   {
-    "name": "胃縮小の種",
-    "reading": "いしゅくしょうのたね",
-    "price": 200,
-    "effect": "飲むと最大満腹度が5下がる",
-    "category": "種"
+    "name": "毒けし草",
+    "reading": "どくけしそう",
+    "category": "草",
+    "effect": "飲むと力の下がりを回復する",
+    "priceType": "fixed",
+    "prices": {
+      "buy": { "0": 200 },
+      "sell": { "0": 100 }
+    }
   },
   {
-    "name": "胃拡張の種",
+    "name": "毒草",
+    "reading": "どくそう",
+    "category": "草",
+    "effect": "飲むと力が1下がってしまう",
+    "priceType": "fixed",
+    "prices": {
+      "buy": { "0": 200 },
+      "sell": { "0": 100 }
+    }
+  },
+  {
+    "name": "ルーラ草",
+    "reading": "るーらそう",
+    "category": "草",
+    "effect": "飲むと1階に飛ばされる",
+    "priceType": "fixed",
+    "prices": {
+      "buy": { "0": 200 },
+      "sell": { "0": 100 }
+    }
+  },
+  {
+    "name": "火炎草",
+    "reading": "かえんそう",
+    "category": "草",
+    "effect": "飲むと火を吐いて前方の敵にダメージを与える",
+    "priceType": "fixed",
+    "prices": {
+      "buy": { "0": 300 },
+      "sell": { "0": 150 }
+    }
+  },
+  {
+    "name": "おどり草",
+    "reading": "おどりそう",
+    "category": "草",
+    "effect": "飲むと踊り状態になる",
+    "priceType": "fixed",
+    "prices": {
+      "buy": { "0": 300 },
+      "sell": { "0": 150 }
+    }
+  },
+  {
+    "name": "まどわし草",
+    "reading": "まどわしそう",
+    "category": "草",
+    "effect": "飲むと混乱状態になる",
+    "priceType": "fixed",
+    "prices": {
+      "buy": { "0": 300 },
+      "sell": { "0": 150 }
+    }
+  },
+  {
+    "name": "メダパニ草",
+    "reading": "めだぱにそう",
+    "category": "草",
+    "effect": "飲むと混乱状態になる",
+    "priceType": "fixed",
+    "prices": {
+      "buy": { "0": 300 },
+      "sell": { "0": 150 }
+    }
+  },
+  {
+    "name": "めつぶし草",
+    "reading": "めつぶしそう",
+    "category": "草",
+    "effect": "飲むと目つぶし状態になる",
+    "priceType": "fixed",
+    "prices": {
+      "buy": { "0": 300 },
+      "sell": { "0": 150 }
+    }
+  },
+  {
+    "name": "ラリホー草",
+    "reading": "らりほーそう",
+    "category": "草",
+    "effect": "飲むと眠り状態になる",
+    "priceType": "fixed",
+    "prices": {
+      "buy": { "0": 300 },
+      "sell": { "0": 150 }
+    }
+  },
+  {
+    "name": "目覚まし草",
+    "reading": "めざましそう",
+    "category": "草",
+    "effect": "飲むと眠りから回復する",
+    "priceType": "fixed",
+    "prices": {
+      "buy": { "0": 400 },
+      "sell": { "0": 100 }
+    }
+  },
+  {
+    "name": "世界樹の葉",
+    "reading": "せかいじゅのは",
+    "category": "草",
+    "effect": "倒れた時に復活する",
+    "priceType": "fixed",
+    "prices": {
+      "buy": { "0": 5000 },
+      "sell": { "0": 2500 }
+    }
+  },
+  {
+    "name": "胃下垂のたね",
+    "reading": "いかすいのたね",
+    "category": "種",
+    "effect": "飲むとよくない効果がある",
+    "priceType": "fixed",
+    "prices": {
+      "buy": { "0": 50 },
+      "sell": { "0": 25 }
+    }
+  },
+  {
+    "name": "胃拡張のたね",
     "reading": "いかくちょうのたね",
-    "price": 1000,
+    "category": "種",
     "effect": "飲むと最大満腹度が5上がる",
-    "category": "種"
+    "priceType": "fixed",
+    "prices": {
+      "buy": { "0": 300 },
+      "sell": { "0": 150 }
+    }
   },
   {
-    "name": "力の種",
+    "name": "胃縮小のたね",
+    "reading": "いしゅくしょうのたね",
+    "category": "種",
+    "effect": "飲むと最大満腹度が5下がる",
+    "priceType": "fixed",
+    "prices": {
+      "buy": { "0": 300 },
+      "sell": { "0": 150 }
+    }
+  },
+  {
+    "name": "すばやさのたね",
+    "reading": "すばやさのたね",
+    "category": "種",
+    "effect": "飲むとすばやさが上がる",
+    "priceType": "fixed",
+    "prices": {
+      "buy": { "0": 300 },
+      "sell": { "0": 150 }
+    }
+  },
+  {
+    "name": "ちからのたね",
     "reading": "ちからのたね",
-    "price": 800,
+    "category": "種",
     "effect": "飲むと力が1上がる",
-    "category": "種"
+    "priceType": "fixed",
+    "prices": {
+      "buy": { "0": 300 },
+      "sell": { "0": 150 }
+    }
   },
   {
-    "name": "睡眠の杖",
-    "reading": "すいみんのつえ",
-    "price": 2000,
-    "effect": "敵を眠らせる。眠った敵は攻撃されるまで動かない",
-    "category": "杖"
+    "name": "でたらめ草",
+    "reading": "でたらめそう",
+    "category": "種",
+    "effect": "飲むとランダムな効果が起こる",
+    "priceType": "fixed",
+    "prices": {
+      "buy": { "0": 300 },
+      "sell": { "0": 150 }
+    }
   },
   {
-    "name": "麻痺の杖",
-    "reading": "まひのつえ",
-    "price": 1500,
-    "effect": "敵を麻痺させる。麻痺した敵は数ターン動けない",
-    "category": "杖"
+    "name": "鉄化のたね",
+    "reading": "てっかのたね",
+    "category": "種",
+    "effect": "飲むと鉄化状態になる",
+    "priceType": "fixed",
+    "prices": {
+      "buy": { "0": 300 },
+      "sell": { "0": 150 }
+    }
   },
   {
-    "name": "混乱の杖",
-    "reading": "こんらんのつえ",
-    "price": 2500,
-    "effect": "敵を混乱させる。混乱した敵は仲間を攻撃する",
-    "category": "杖"
+    "name": "かなしばりのたね",
+    "reading": "かなしばりのたね",
+    "category": "種",
+    "effect": "飲むと金縛り状態になる",
+    "priceType": "fixed",
+    "prices": {
+      "buy": { "0": 500 },
+      "sell": { "0": 250 }
+    }
+  },
+  {
+    "name": "ふこうのたね",
+    "reading": "ふこうのたね",
+    "category": "種",
+    "effect": "飲むと不幸になる",
+    "priceType": "fixed",
+    "prices": {
+      "buy": { "0": 500 },
+      "sell": { "0": 150 }
+    }
+  },
+  {
+    "name": "バーサーカーのたね",
+    "reading": "ばーさーかーのたね",
+    "category": "種",
+    "effect": "飲むとバーサーカー状態になる",
+    "priceType": "fixed",
+    "prices": {
+      "buy": { "0": 1000 },
+      "sell": { "0": 500 }
+    }
+  },
+  {
+    "name": "しあわせのたね",
+    "reading": "しあわせのたね",
+    "category": "種",
+    "effect": "飲むとレベルが1上がる",
+    "priceType": "fixed",
+    "prices": {
+      "buy": { "0": 1500 },
+      "sell": { "0": 500 }
+    }
   },
   {
     "name": "転ばぬ先の杖",
     "reading": "ころばぬさきのつえ",
-    "price": 3000,
+    "category": "杖",
     "effect": "つまずいても持ち物を落とさなくなる",
-    "category": "杖"
+    "priceType": "uses",
+    "prices": {
+      "buy": { "0": 1000, "1": 1050, "2": 1100, "3": 1150, "4": 1200, "5": 1250, "6": 1300 },
+      "sell": { "0": 200, "1": 210, "2": 220, "3": 230, "4": 240, "5": 250, "6": 260 }
+    }
   },
   {
-    "name": "吹き飛ばしの杖",
-    "reading": "ふきとばしのつえ",
-    "price": 1800,
-    "effect": "敵を後ろに吹き飛ばす",
-    "category": "杖"
+    "name": "身代わりの杖",
+    "reading": "みがわりのつえ",
+    "category": "杖",
+    "effect": "身代わり人形を作り出す",
+    "priceType": "uses",
+    "prices": {
+      "buy": { "0": 1500, "1": 1575, "2": 1650, "3": 1725, "4": 1800, "5": 1875, "6": 1950 },
+      "sell": { "0": 500, "1": 525, "2": 550, "3": 575, "4": 600, "5": 625, "6": 650 }
+    }
+  },
+  {
+    "name": "モノカの杖",
+    "reading": "ものかのつえ",
+    "category": "杖",
+    "effect": "モンスターをお金に変える",
+    "priceType": "uses",
+    "prices": {
+      "buy": { "0": 8000, "1": 8400, "2": 8800, "3": 9200, "4": 9600, "5": 10000, "6": 10400 },
+      "sell": { "0": 1000, "1": 1050, "2": 1100, "3": 1150, "4": 1200, "5": 1250, "6": 1300 }
+    }
+  },
+  {
+    "name": "ザキの杖",
+    "reading": "ざきのつえ",
+    "category": "杖",
+    "effect": "敵を即死させる",
+    "priceType": "uses",
+    "prices": {
+      "buy": { "0": 8000, "1": 8400, "2": 8800, "3": 9200, "4": 9600, "5": 10000, "6": 10400 },
+      "sell": { "0": 1500, "1": 1575, "2": 1650, "3": 1725, "4": 1800, "5": 1875, "6": 1950 }
+    }
   },
   {
     "name": "銅の剣",
     "reading": "どうのけん",
-    "price": 300,
+    "category": "剣",
     "effect": "攻撃力+2の剣",
-    "category": "剣"
+    "priceType": "modifier",
+    "prices": {
+      "buy": { "-1": 95, "0": 100, "+1": 105, "+2": 110, "+3": 115 },
+      "sell": { "-1": 45, "0": 50, "+1": 55, "+2": 60, "+3": 65 }
+    }
   },
   {
     "name": "鉄の剣",
     "reading": "てつのけん",
-    "price": 800,
+    "category": "剣",
     "effect": "攻撃力+5の剣",
-    "category": "剣"
+    "priceType": "modifier",
+    "prices": {
+      "buy": { "-1": 285, "0": 300, "+1": 315, "+2": 330, "+3": 345 },
+      "sell": { "-1": 145, "0": 150, "+1": 155, "+2": 160, "+3": 165 }
+    }
   },
   {
     "name": "鋼の剣",
     "reading": "はがねのけん",
-    "price": 2000,
+    "category": "剣",
     "effect": "攻撃力+8の剣",
-    "category": "剣"
+    "priceType": "modifier",
+    "prices": {
+      "buy": { "-1": 950, "0": 1000, "+1": 1050, "+2": 1100, "+3": 1150 },
+      "sell": { "-1": 475, "0": 500, "+1": 525, "+2": 550, "+3": 575 }
+    }
   },
   {
     "name": "どうたぬき",
     "reading": "どうたぬき",
-    "price": 4000,
+    "category": "剣",
     "effect": "攻撃力+12の剣",
-    "category": "剣"
+    "priceType": "modifier",
+    "prices": {
+      "buy": { "-1": 1900, "0": 2000, "+1": 2100, "+2": 2200, "+3": 2300 },
+      "sell": { "-1": 950, "0": 1000, "+1": 1050, "+2": 1100, "+3": 1150 }
+    }
+  },
+  {
+    "name": "はぐれメタルの剣",
+    "reading": "はぐれめたるのけん",
+    "category": "剣",
+    "effect": "攻撃力+15の剣",
+    "priceType": "modifier",
+    "prices": {
+      "buy": { "-1": 3800, "0": 4000, "+1": 4200, "+2": 4400, "+3": 4600 },
+      "sell": { "-1": 1900, "0": 2000, "+1": 2100, "+2": 2200, "+3": 2300 }
+    }
+  },
+  {
+    "name": "エリミネーターの斧",
+    "reading": "えりみねーたーのおの",
+    "category": "剣",
+    "effect": "特殊な効果を持つ斧",
+    "priceType": "modifier",
+    "prices": {
+      "buy": { "-1": 5900, "0": 6000, "+1": 6100, "+2": 6200, "+3": 6300 },
+      "sell": { "-1": 1550, "0": 1600, "+1": 1650, "+2": 1700, "+3": 1750 }
+    }
+  },
+  {
+    "name": "せいぎのそろばん",
+    "reading": "せいぎのそろばん",
+    "category": "剣",
+    "effect": "正義のそろばん",
+    "priceType": "modifier",
+    "prices": {
+      "buy": { "-1": 7600, "0": 8000, "+1": 8400, "+2": 8800, "+3": 9200 },
+      "sell": { "-1": 2850, "0": 3000, "+1": 3150, "+2": 3300, "+3": 3450 }
+    }
   },
   {
     "name": "皮の盾",
     "reading": "かわのたて",
-    "price": 200,
+    "category": "盾",
     "effect": "防御力+2の盾",
-    "category": "盾"
+    "priceType": "modifier",
+    "prices": {
+      "buy": { "-1": 95, "0": 100, "+1": 105, "+2": 110, "+3": 115 },
+      "sell": { "-1": 45, "0": 50, "+1": 55, "+2": 60, "+3": 65 }
+    }
   },
   {
     "name": "青銅の盾",
     "reading": "せいどうのたて",
-    "price": 600,
+    "category": "盾",
     "effect": "防御力+5の盾",
-    "category": "盾"
+    "priceType": "modifier",
+    "prices": {
+      "buy": { "-1": 285, "0": 300, "+1": 315, "+2": 330, "+3": 345 },
+      "sell": { "-1": 145, "0": 150, "+1": 155, "+2": 160, "+3": 165 }
+    }
   },
   {
     "name": "鉄の盾",
     "reading": "てつのたて",
-    "price": 1200,
+    "category": "盾",
     "effect": "防御力+8の盾",
-    "category": "盾"
+    "priceType": "modifier",
+    "prices": {
+      "buy": { "-1": 950, "0": 1000, "+1": 1050, "+2": 1100, "+3": 1150 },
+      "sell": { "-1": 475, "0": 500, "+1": 525, "+2": 550, "+3": 575 }
+    }
   },
   {
     "name": "風魔の盾",
     "reading": "ふうまのたて",
-    "price": 8000,
+    "category": "盾",
     "effect": "防御力+20の最強の盾",
-    "category": "盾"
+    "priceType": "modifier",
+    "prices": {
+      "buy": { "-1": 5700, "0": 6000, "+1": 6300, "+2": 6600, "+3": 6900 },
+      "sell": { "-1": 2850, "0": 3000, "+1": 3150, "+2": 3300, "+3": 3450 }
+    }
+  },
+  {
+    "name": "見切りの盾",
+    "reading": "みきりのたて",
+    "category": "盾",
+    "effect": "見切り効果を持つ盾",
+    "priceType": "modifier",
+    "prices": {
+      "buy": { "-1": 10200, "0": 10500, "+1": 10800, "+2": 11100, "+3": 11400 },
+      "sell": { "-1": 2900, "0": 3000, "+1": 3100, "+2": 3200, "+3": 3300 }
+    }
   },
   {
     "name": "パン",
     "reading": "ぱん",
-    "price": 50,
+    "category": "食べ物",
     "effect": "満腹度を50回復する",
-    "category": "食べ物"
+    "priceType": "fixed",
+    "prices": {
+      "buy": { "0": 30 },
+      "sell": { "0": 15 }
+    }
   },
   {
     "name": "おにぎり",
     "reading": "おにぎり",
-    "price": 100,
+    "category": "食べ物",
     "effect": "満腹度を100回復する",
-    "category": "食べ物"
+    "priceType": "fixed",
+    "prices": {
+      "buy": { "0": 60 },
+      "sell": { "0": 30 }
+    }
   },
   {
     "name": "大きなおにぎり",
     "reading": "おおきなおにぎり",
-    "price": 200,
+    "category": "食べ物",
     "effect": "満腹度を200回復する",
-    "category": "食べ物"
+    "priceType": "fixed",
+    "prices": {
+      "buy": { "0": 120 },
+      "sell": { "0": 60 }
+    }
   },
   {
     "name": "巨大なおにぎり",
     "reading": "きょだいなおにぎり",
-    "price": 400,
+    "category": "食べ物",
     "effect": "満腹度を400回復する",
-    "category": "食べ物"
+    "priceType": "fixed",
+    "prices": {
+      "buy": { "0": 240 },
+      "sell": { "0": 120 }
+    }
   },
   {
     "name": "識別の巻物",
     "reading": "しきべつのまきもの",
-    "price": 1000,
+    "category": "巻物",
     "effect": "アイテム1個の正体がわかる",
-    "category": "巻物"
+    "priceType": "fixed",
+    "prices": {
+      "buy": { "0": 200 },
+      "sell": { "0": 100 }
+    }
   },
   {
     "name": "転移の巻物",
     "reading": "てんいのまきもの",
-    "price": 800,
+    "category": "巻物",
     "effect": "読むと別の場所に移動する",
-    "category": "巻物"
+    "priceType": "fixed",
+    "prices": {
+      "buy": { "0": 300 },
+      "sell": { "0": 150 }
+    }
   },
   {
     "name": "混乱の巻物",
     "reading": "こんらんのまきもの",
-    "price": 600,
+    "category": "巻物",
     "effect": "読むと周りの敵が混乱する",
-    "category": "巻物"
+    "priceType": "fixed",
+    "prices": {
+      "buy": { "0": 600 },
+      "sell": { "0": 300 }
+    }
+  },
+  {
+    "name": "インパスの指輪",
+    "reading": "いんぱすのゆびわ",
+    "category": "腕輪",
+    "effect": "敵の居場所がわかる",
+    "priceType": "fixed",
+    "prices": {
+      "buy": { "0": 50000 },
+      "sell": { "0": 25000 }
+    }
+  },
+  {
+    "name": "ザメハの指輪",
+    "reading": "ざめはのゆびわ",
+    "category": "腕輪",
+    "effect": "復活効果を持つ指輪",
+    "priceType": "fixed",
+    "prices": {
+      "buy": { "0": 20000 },
+      "sell": { "0": 10000 }
+    }
   },
   {
     "name": "ちからの腕輪",
     "reading": "ちからのうでわ",
-    "price": 3000,
-    "effect": "装備すると力が3上がる",
-    "category": "腕輪"
+    "category": "腕輪",
+    "effect": "装備すると力が上がる",
+    "priceType": "fixed",
+    "prices": {
+      "buy": { "0": 3000 },
+      "sell": { "0": 1500 }
+    }
   },
   {
     "name": "透視の腕輪",
     "reading": "とうしのうでわ",
-    "price": 5000,
+    "category": "腕輪",
     "effect": "装備すると敵やアイテムの位置がわかる",
-    "category": "腕輪"
-  },
-  {
-    "name": "遠投の腕輪",
-    "reading": "えんとうのうでわ",
-    "price": 2500,
-    "effect": "装備すると投げたアイテムが敵を貫通する",
-    "category": "腕輪"
+    "priceType": "fixed",
+    "prices": {
+      "buy": { "0": 5000 },
+      "sell": { "0": 2500 }
+    }
   }
 ]

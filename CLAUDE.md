@@ -29,16 +29,25 @@ python3 -m http.server 8002
 - Search and sorting functionality
 - Modal management
 
-**Data Structure** (`items.json`): Array of item objects with schema:
+**Data Structure** (`items.json`): Array of item objects with enhanced price system:
 ```json
 {
   "name": "アイテム名",
-  "reading": "よみがな", 
-  "price": 数値,
+  "reading": "よみがな",
+  "category": "カテゴリ",
   "effect": "効果説明",
-  "category": "カテゴリ"
+  "priceType": "fixed|modifier|uses",
+  "prices": {
+    "buy": { "0": 買値, "+1": 補正買値, ... },
+    "sell": { "0": 売値, "+1": 補正売値, ... }
+  }
 }
 ```
+
+**Price Types**:
+- `fixed`: 草・種・巻物・腕輪・食べ物（固定価格）
+- `modifier`: 剣・盾（補正値-1〜+3による価格変動）
+- `uses`: 杖・壺（残回数0〜6による価格変動）
 
 **State Management**: 
 - `this.items`: All item data from JSON
@@ -52,11 +61,16 @@ python3 -m http.server 8002
 
 **Search System**: Supports partial matching on item name, reading (hiragana), category, and effect text.
 
+**Price System**: 
+- Displays both buy and sell prices for all items
+- Price search matches both buy and sell prices across all modifier/use variations
+- Color-coded price display (buy: purple, sell: blue)
+
 **Sorting**: Always displays items grouped by category, with sorting applied within each category.
 
 **Dual Interface**: 
-- Item list tab with search/sort/identification
-- Price search tab for reverse lookup by price
+- Item list tab with search/sort/identification and dual price display
+- Price search tab for comprehensive price lookup (buy/sell values)
 
 **Modal System**: Two modals - item details and reset confirmation with safety prompts.
 
@@ -82,6 +96,17 @@ python3 -m http.server 8002
 
 ## Important Notes
 
-When modifying item data, maintain the exact JSON schema including the `reading` field for Japanese hiragana search functionality.
+When modifying item data, maintain the exact JSON schema including:
+- The `reading` field for Japanese hiragana search functionality
+- The `priceType` and `prices` structure for accurate price calculations
+- Proper buy/sell price mappings for all modifier/use variations
 
 The application is completely client-side with no build process - direct file editing and browser refresh for development.
+
+## Price Calculation Logic
+
+The app uses `getCurrentPrice(item, priceType, modifier)` to retrieve prices:
+- For fixed items: Always uses key "0"
+- For modifier items: Uses keys "-1", "0", "+1", "+2", "+3" 
+- For uses items: Uses keys "0", "1", "2", "3", "4", "5", "6"
+- Price search (`itemMatchesPrice`) checks all buy/sell price variations
