@@ -1,0 +1,219 @@
+[
+  {
+    "name": "火炎草",
+    "reading": "かえんそう",
+    "price": 500,
+    "effect": "飲むと火を吐いて前方の敵に大ダメージを与える",
+    "category": "草"
+  },
+  {
+    "name": "氷結草",
+    "reading": "ひょうけつそう",
+    "price": 400,
+    "effect": "飲むと氷を吐いて前方の敵を凍らせる",
+    "category": "草"
+  },
+  {
+    "name": "毒草",
+    "reading": "どくそう",
+    "price": 100,
+    "effect": "飲むと力が1下がってしまう",
+    "category": "草"
+  },
+  {
+    "name": "薬草",
+    "reading": "やくそう",
+    "price": 300,
+    "effect": "飲むとHPを50回復する",
+    "category": "草"
+  },
+  {
+    "name": "弟切草",
+    "reading": "おとうとぎりそう",
+    "price": 500,
+    "effect": "飲むと最大HPが3上がる",
+    "category": "草"
+  },
+  {
+    "name": "胃縮小の種",
+    "reading": "いしゅくしょうのたね",
+    "price": 200,
+    "effect": "飲むと最大満腹度が5下がる",
+    "category": "種"
+  },
+  {
+    "name": "胃拡張の種",
+    "reading": "いかくちょうのたね",
+    "price": 1000,
+    "effect": "飲むと最大満腹度が5上がる",
+    "category": "種"
+  },
+  {
+    "name": "力の種",
+    "reading": "ちからのたね",
+    "price": 800,
+    "effect": "飲むと力が1上がる",
+    "category": "種"
+  },
+  {
+    "name": "睡眠の杖",
+    "reading": "すいみんのつえ",
+    "price": 2000,
+    "effect": "敵を眠らせる。眠った敵は攻撃されるまで動かない",
+    "category": "杖"
+  },
+  {
+    "name": "麻痺の杖",
+    "reading": "まひのつえ",
+    "price": 1500,
+    "effect": "敵を麻痺させる。麻痺した敵は数ターン動けない",
+    "category": "杖"
+  },
+  {
+    "name": "混乱の杖",
+    "reading": "こんらんのつえ",
+    "price": 2500,
+    "effect": "敵を混乱させる。混乱した敵は仲間を攻撃する",
+    "category": "杖"
+  },
+  {
+    "name": "転ばぬ先の杖",
+    "reading": "ころばぬさきのつえ",
+    "price": 3000,
+    "effect": "つまずいても持ち物を落とさなくなる",
+    "category": "杖"
+  },
+  {
+    "name": "吹き飛ばしの杖",
+    "reading": "ふきとばしのつえ",
+    "price": 1800,
+    "effect": "敵を後ろに吹き飛ばす",
+    "category": "杖"
+  },
+  {
+    "name": "銅の剣",
+    "reading": "どうのけん",
+    "price": 300,
+    "effect": "攻撃力+2の剣",
+    "category": "剣"
+  },
+  {
+    "name": "鉄の剣",
+    "reading": "てつのけん",
+    "price": 800,
+    "effect": "攻撃力+5の剣",
+    "category": "剣"
+  },
+  {
+    "name": "鋼の剣",
+    "reading": "はがねのけん",
+    "price": 2000,
+    "effect": "攻撃力+8の剣",
+    "category": "剣"
+  },
+  {
+    "name": "どうたぬき",
+    "reading": "どうたぬき",
+    "price": 4000,
+    "effect": "攻撃力+12の剣",
+    "category": "剣"
+  },
+  {
+    "name": "皮の盾",
+    "reading": "かわのたて",
+    "price": 200,
+    "effect": "防御力+2の盾",
+    "category": "盾"
+  },
+  {
+    "name": "青銅の盾",
+    "reading": "せいどうのたて",
+    "price": 600,
+    "effect": "防御力+5の盾",
+    "category": "盾"
+  },
+  {
+    "name": "鉄の盾",
+    "reading": "てつのたて",
+    "price": 1200,
+    "effect": "防御力+8の盾",
+    "category": "盾"
+  },
+  {
+    "name": "風魔の盾",
+    "reading": "ふうまのたて",
+    "price": 8000,
+    "effect": "防御力+20の最強の盾",
+    "category": "盾"
+  },
+  {
+    "name": "パン",
+    "reading": "ぱん",
+    "price": 50,
+    "effect": "満腹度を50回復する",
+    "category": "食べ物"
+  },
+  {
+    "name": "おにぎり",
+    "reading": "おにぎり",
+    "price": 100,
+    "effect": "満腹度を100回復する",
+    "category": "食べ物"
+  },
+  {
+    "name": "大きなおにぎり",
+    "reading": "おおきなおにぎり",
+    "price": 200,
+    "effect": "満腹度を200回復する",
+    "category": "食べ物"
+  },
+  {
+    "name": "巨大なおにぎり",
+    "reading": "きょだいなおにぎり",
+    "price": 400,
+    "effect": "満腹度を400回復する",
+    "category": "食べ物"
+  },
+  {
+    "name": "識別の巻物",
+    "reading": "しきべつのまきもの",
+    "price": 1000,
+    "effect": "アイテム1個の正体がわかる",
+    "category": "巻物"
+  },
+  {
+    "name": "転移の巻物",
+    "reading": "てんいのまきもの",
+    "price": 800,
+    "effect": "読むと別の場所に移動する",
+    "category": "巻物"
+  },
+  {
+    "name": "混乱の巻物",
+    "reading": "こんらんのまきもの",
+    "price": 600,
+    "effect": "読むと周りの敵が混乱する",
+    "category": "巻物"
+  },
+  {
+    "name": "ちからの腕輪",
+    "reading": "ちからのうでわ",
+    "price": 3000,
+    "effect": "装備すると力が3上がる",
+    "category": "腕輪"
+  },
+  {
+    "name": "透視の腕輪",
+    "reading": "とうしのうでわ",
+    "price": 5000,
+    "effect": "装備すると敵やアイテムの位置がわかる",
+    "category": "腕輪"
+  },
+  {
+    "name": "遠投の腕輪",
+    "reading": "えんとうのうでわ",
+    "price": 2500,
+    "effect": "装備すると投げたアイテムが敵を貫通する",
+    "category": "腕輪"
+  }
+]

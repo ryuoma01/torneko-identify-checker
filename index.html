@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Torneko Identify Checker</title>
+    
+    <!-- WebClip対応 -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Torneko Checker">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app">
+        <header>
+            <h1>識別チェッカー</h1>
+        </header>
+        
+        <nav class="tab-nav">
+            <button id="tab-items" class="tab-button active">アイテム一覧</button>
+            <button id="tab-price" class="tab-button">値段検索</button>
+        </nav>
+        
+        <!-- アイテム一覧タブ -->
+        <div id="items-tab" class="tab-content active">
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="アイテム名・読み仮名で検索...">
+            </div>
+            
+            <div class="sort-container">
+                <label for="sort-select">並び順:</label>
+                <select id="sort-select">
+                    <option value="name">あいうえお順</option>
+                    <option value="price">値段順</option>
+                    <option value="identified">チェック順</option>
+                </select>
+                <button id="reset-button" class="reset-button">リセット</button>
+            </div>
+            
+            <div id="items-list" class="items-list">
+                <!-- アイテムリストはJavaScriptで動的生成 -->
+            </div>
+        </div>
+        
+        <!-- 値段検索タブ -->
+        <div id="price-tab" class="tab-content">
+            <div class="price-search-container">
+                <input type="number" id="price-input" placeholder="値段を入力...">
+                <button id="price-search-btn">検索</button>
+            </div>
+            
+            <div id="price-results" class="price-results">
+                <!-- 値段検索結果はJavaScriptで動的生成 -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- アイテム詳細モーダル -->
+    <div id="item-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3 id="modal-item-name"></h3>
+            <p id="modal-item-effect"></p>
+            <p id="modal-item-price"></p>
+        </div>
+    </div>
+    
+    <!-- リセット確認モーダル -->
+    <div id="reset-modal" class="modal">
+        <div class="modal-content reset-modal-content">
+            <span class="close reset-close">&times;</span>
+            <h3>識別状態をリセット</h3>
+            <p>すべてのアイテムの識別状態をリセットしますか？</p>
+            <p class="warning-text">この操作は元に戻せません。</p>
+            <div class="modal-buttons">
+                <button id="reset-cancel" class="cancel-button">キャンセル</button>
+                <button id="reset-confirm" class="confirm-button">リセット実行</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>
