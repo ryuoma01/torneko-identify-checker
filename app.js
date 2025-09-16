@@ -13,6 +13,7 @@ class TornekoItemApp {
     this.loadIdentifiedItems();
     this.setupEventListeners();
     this.renderItems();
+    this.initializePriceTab();
   }
 
   // アイテムデータを読み込み
@@ -56,6 +57,17 @@ class TornekoItemApp {
     document.getElementById('search-input').addEventListener('input', (e) => {
       this.currentFilter = e.target.value.toLowerCase();
       this.renderItems();
+      this.toggleClearButton('search-clear-btn', e.target.value);
+    });
+
+    // 検索クリアボタン
+    document.getElementById('search-clear-btn').addEventListener('click', () => {
+      const searchInput = document.getElementById('search-input');
+      searchInput.value = '';
+      this.currentFilter = '';
+      this.renderItems();
+      this.toggleClearButton('search-clear-btn', '');
+      searchInput.focus();
     });
 
     // ソート機能
@@ -67,15 +79,22 @@ class TornekoItemApp {
     // リセット機能
     document.getElementById('reset-button').addEventListener('click', () => this.showResetModal());
 
-    // 値段検索
-    document.getElementById('price-search-btn').addEventListener('click', () => this.searchByPrice());
-    document.getElementById('price-input').addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') {
-        this.searchByPrice();
-      }
+    // 値段検索 - 動的検索
+    document.getElementById('price-input').addEventListener('input', (e) => {
+      this.searchByPrice();
+      this.toggleClearButton('price-clear-btn', e.target.value);
+    });
+
+    // 値段検索クリアボタン
+    document.getElementById('price-clear-btn').addEventListener('click', () => {
+      const priceInput = document.getElementById('price-input');
+      priceInput.value = '';
+      this.searchByPrice();
+      this.toggleClearButton('price-clear-btn', '');
+      priceInput.focus();
     });
     
-    // 価格フィルターチェックボックス
+    // 価格フィルターチェックボックス - 動的更新
     document.getElementById('filter-buy').addEventListener('change', () => this.searchByPrice());
     document.getElementById('filter-sell').addEventListener('change', () => this.searchByPrice());
 
@@ -113,6 +132,15 @@ class TornekoItemApp {
       }
     });
 
+    // 先頭に戻るボタン
+    document.getElementById('scroll-to-top-items').addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    
+    document.getElementById('scroll-to-top-price').addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
     // ESCキーでモーダルを閉じる
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
@@ -138,6 +166,12 @@ class TornekoItemApp {
       setTimeout(() => {
         document.getElementById('price-input').focus();
       }, 100);
+      
+      // 値段検索結果が表示されている場合は状態を同期
+      const priceInput = document.getElementById('price-input');
+      if (priceInput.value.trim() !== '') {
+        this.updatePriceSearchResults();
+      }
     }
   }
 
@@ -171,7 +205,7 @@ class TornekoItemApp {
 
     // 常にカテゴリ別にグループ化して表示
     const groupedItems = this.groupItemsByCategory(sortedItems);
-    const categoryOrder = ['草', '種', '杖', '剣', '盾', '食べ物', '巻物', '腕輪'];
+    const categoryOrder = ['草', '杖', '剣', '盾', '巻物', '指輪', '壺'];
     
     categoryOrder.forEach(category => {
       if (groupedItems[category]) {
@@ -337,14 +371,64 @@ class TornekoItemApp {
     }
     this.saveIdentifiedItems();
     this.renderItems();
+    
+    // 値段検索結果が表示されている場合は、検索結果も更新
+    const priceInput = document.getElementById('price-input');
+    if (priceInput.value.trim() !== '') {
+      this.updatePriceSearchResults();
+    }
+  }
+
+  // 値段検索結果での識別状態切り替え（再描画を避ける）
+  toggleIdentifiedForPriceSearch(itemName, checkbox, resultDiv) {
+    if (this.identifiedItems.has(itemName)) {
+      this.identifiedItems.delete(itemName);
+    } else {
+      this.identifiedItems.add(itemName);
+    }
+    this.saveIdentifiedItems();
+    
+    // チェックボックスとクラス名を即座に更新
+    checkbox.checked = this.identifiedItems.has(itemName);
+    resultDiv.className = `price-result-item ${this.identifiedItems.has(itemName) ? 'identified' : ''}`;
+    
+    // アイテム一覧も更新（但し値段検索結果は再描画しない）
+    this.renderItems();
+  }
+
+  // 値段検索結果のチェック状態を更新（再描画せずに）
+  updatePriceSearchResults() {
+    const resultsDiv = document.getElementById('price-results');
+    const priceResultItems = resultsDiv.querySelectorAll('.price-result-item');
+    
+    priceResultItems.forEach(resultDiv => {
+      const checkbox = resultDiv.querySelector('.item-checkbox');
+      const itemName = resultDiv.querySelector('.price-result-name').textContent;
+      
+      if (checkbox && itemName) {
+        checkbox.checked = this.identifiedItems.has(itemName);
+        resultDiv.className = `price-result-item ${this.identifiedItems.has(itemName) ? 'identified' : ''}`;
+      }
+    });
   }
 
   // 値段で検索
   searchByPrice() {
     const priceInput = document.getElementById('price-input');
-    const price = parseInt(priceInput.value);
+    const priceValue = priceInput.value.trim();
     const resultsDiv = document.getElementById('price-results');
 
+    // 空の入力の場合は結果をクリア
+    if (priceValue === '') {
+      resultsDiv.innerHTML = `
+        <div class="empty-state">
+          <p>値段を入力すると検索結果が表示されます</p>
+        </div>
+      `;
+      return;
+    }
+
+    const price = parseInt(priceValue);
     if (isNaN(price) || price <= 0) {
       resultsDiv.innerHTML = `
         <div class="empty-state">
@@ -369,10 +453,53 @@ class TornekoItemApp {
     }
 
     resultsDiv.innerHTML = '';
-    matchingItems.forEach(item => {
-      const resultElement = this.createPriceResultElement(item);
-      resultsDiv.appendChild(resultElement);
+    
+    // カテゴリ別にグループ化して表示
+    const groupedItems = this.groupItemsByCategory(matchingItems);
+    const categoryOrder = ['草', '杖', '剣', '盾', '巻物', '指輪', '壺'];
+    
+    categoryOrder.forEach(category => {
+      if (groupedItems[category]) {
+        const categorySection = this.createPriceCategorySection(category, groupedItems[category]);
+        resultsDiv.appendChild(categorySection);
+      }
     });
+
+    // その他のカテゴリ
+    Object.keys(groupedItems).forEach(category => {
+      if (!categoryOrder.includes(category)) {
+        const categorySection = this.createPriceCategorySection(category, groupedItems[category]);
+        resultsDiv.appendChild(categorySection);
+      }
+    });
+  }
+
+  // 値段検索結果のカテゴリセクションを作成
+  createPriceCategorySection(category, items) {
+    const section = document.createElement('div');
+    section.className = 'price-category-section';
+    
+    const header = document.createElement('h3');
+    header.textContent = `${category} (${items.length})`;
+    header.style.cssText = `
+      color: var(--main-color);
+      font-size: 16px;
+      font-weight: bold;
+      margin: 20px 0 12px 0;
+      padding: 8px 12px;
+      background-color: #f8f9fa;
+      border-left: 4px solid var(--accent-color);
+      border-radius: 4px;
+    `;
+    
+    section.appendChild(header);
+
+    items.forEach(item => {
+      const itemElement = this.createPriceResultElement(item);
+      section.appendChild(itemElement);
+    });
+
+    return section;
   }
 
   // 値段検索結果の要素を作成
@@ -386,9 +513,7 @@ class TornekoItemApp {
     checkbox.checked = this.identifiedItems.has(item.name);
     checkbox.addEventListener('change', (e) => {
       e.stopPropagation();
-      this.toggleIdentified(item.name);
-      // 値段検索結果も更新
-      resultDiv.className = `price-result-item ${this.identifiedItems.has(item.name) ? 'identified' : ''}`;
+      this.toggleIdentifiedForPriceSearch(item.name, checkbox, resultDiv);
     });
 
     const content = document.createElement('div');
@@ -435,10 +560,8 @@ class TornekoItemApp {
     resultDiv.appendChild(detailButton);
 
     resultDiv.addEventListener('click', (e) => {
-      if (e.target !== checkbox && e.target !== detailButton) {
-        this.toggleIdentified(item.name);
-        // 値段検索結果も更新
-        resultDiv.className = `price-result-item ${this.identifiedItems.has(item.name) ? 'identified' : ''}`;
+      if (e.target !== checkbox && e.target !== detailButton && !detailButton.contains(e.target)) {
+        this.toggleIdentifiedForPriceSearch(item.name, checkbox, resultDiv);
       }
     });
 
@@ -546,6 +669,28 @@ class TornekoItemApp {
     }
     
     return false;
+  }
+
+  // 値段検索タブの初期化
+  initializePriceTab() {
+    const resultsDiv = document.getElementById('price-results');
+    resultsDiv.innerHTML = `
+      <div class="empty-state">
+        <p>値段を入力すると検索結果が表示されます</p>
+      </div>
+    `;
+    
+    // クリアボタンの初期状態を設定
+    this.toggleClearButton('search-clear-btn', document.getElementById('search-input').value);
+    this.toggleClearButton('price-clear-btn', document.getElementById('price-input').value);
+  }
+
+  // クリアボタンの表示/非表示を切り替え
+  toggleClearButton(buttonId, inputValue) {
+    const button = document.getElementById(buttonId);
+    if (button) {
+      button.style.display = inputValue.trim() !== '' ? 'block' : 'none';
+    }
   }
 
   // カテゴリにジャンプする

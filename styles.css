@@ -92,9 +92,15 @@ header h1 {
   margin-bottom: 16px;
 }
 
-.search-container input {
+.input-with-clear {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-with-clear input {
   width: 100%;
-  padding: 16px;
+  padding: 16px 50px 16px 16px;
   font-size: 16px;
   border: 2px solid var(--main-color);
   border-radius: 8px;
@@ -102,9 +108,41 @@ header h1 {
   transition: border-color 0.3s ease;
 }
 
-.search-container input:focus {
+.input-with-clear input:focus {
   border-color: var(--accent-color);
 }
+
+.clear-button {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: var(--main-color);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  line-height: 1;
+  font-family: Arial, sans-serif;
+}
+
+.clear-button:hover {
+  background-color: rgba(128, 55, 89, 0.1);
+  color: var(--accent-color);
+}
+
+.clear-button:active {
+  transform: scale(0.95);
+}
+
 
 /* ソートエリア */
 .sort-container {
@@ -278,9 +316,11 @@ header h1 {
 
 /* 値段検索 */
 .price-search-container {
-  display: flex;
-  gap: 12px;
   margin-bottom: 16px;
+}
+
+.price-search-container .input-with-clear {
+  width: 100%;
 }
 
 /* 価格フィルターコンテナ */
@@ -356,46 +396,15 @@ header h1 {
   transform: translateY(0);
 }
 
-.price-search-container input {
-  flex: 1;
-  padding: 16px;
-  font-size: 16px;
-  border: 2px solid var(--main-color);
-  border-radius: 8px;
-  outline: none;
-  -moz-appearance: textfield;
-}
-
-/* Chrome, Safari, Edge でスピンボタンを非表示 */
-.price-search-container input::-webkit-outer-spin-button,
-.price-search-container input::-webkit-inner-spin-button {
+/* Chrome, Safari, Edge でスピンボタンを非表示（数値入力フィールド用） */
+.input-with-clear input[type="number"]::-webkit-outer-spin-button,
+.input-with-clear input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-.price-search-container input:focus {
-  border-color: var(--accent-color);
-}
-
-.price-search-container button {
-  padding: 16px 24px;
-  font-size: 16px;
-  font-weight: bold;
-  background-color: var(--main-color);
-  color: var(--bg-color);
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  min-width: 80px;
-}
-
-.price-search-container button:hover {
-  background-color: var(--dark-accent);
-}
-
-.price-search-container button:active {
-  transform: translateY(1px);
+.input-with-clear input[type="number"] {
+  -moz-appearance: textfield;
 }
 
 /* 値段検索結果 */
@@ -675,6 +684,36 @@ header h1 {
   }
 }
 
+/* 先頭に戻るボタン */
+.scroll-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 12px 16px;
+  font-size: 14px;
+  font-weight: bold;
+  background-color: var(--accent-color);
+  color: var(--bg-color);
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(128, 55, 89, 0.3);
+  transition: all 0.3s ease;
+  z-index: 98;
+  min-width: 120px;
+  white-space: nowrap;
+}
+
+.scroll-to-top:hover {
+  background-color: var(--dark-accent);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(128, 55, 89, 0.4);
+}
+
+.scroll-to-top:active {
+  transform: translateY(0);
+}
+
 /* タッチデバイス最適化 */
 @media (hover: none) and (pointer: coarse) {
   .item:hover,
@@ -688,5 +727,11 @@ header h1 {
   .item:active,
   .price-result-item:active {
     background-color: #f0f0f0;
+  }
+  
+  .scroll-to-top:hover {
+    background-color: var(--accent-color);
+    transform: none;
+    box-shadow: 0 4px 12px rgba(128, 55, 89, 0.3);
   }
 }

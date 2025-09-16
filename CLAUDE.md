@@ -45,17 +45,18 @@ python3 -m http.server 8002
 ```
 
 **Price Types**:
-- `fixed`: 草・種・巻物・腕輪・食べ物（固定価格）
+- `fixed`: 草・巻物・指輪（固定価格）
 - `modifier`: 剣・盾（補正値-1〜+3による価格変動）
-- `uses`: 杖（残回数0〜6による価格変動）
+- `uses`: 杖・壺（残回数0〜6による価格変動）
 
-**Current Database**: Contains 60+ items accurately extracted from official Torneko 2 price tables, including:
-- 15 grass types (命の草, 薬草, 火炎草, 世界樹の葉, etc.)
-- 10 seed types (ちからのたね, 胃拡張のたね, しあわせのたね, etc.)
-- 4 staff types with usage-based pricing (転ばぬ先の杖, 身代わりの杖, モノカの杖, ザキの杖)
-- 7 weapon types with modifier-based pricing (銅の剣 to せいぎのそろばん)
-- 5 shield types with modifier-based pricing (皮の盾 to 見切りの盾)
-- Food, scroll, and ring categories with accurate buy/sell prices
+**Current Database**: Contains 138 items accurately extracted from official Torneko 2 price tables, including:
+- 26 grass types (命の草, 薬草, 火炎草, 世界樹の葉, etc.)
+- 28 staff types with usage-based pricing (転ばぬ先の杖, 身代わりの杖, モノカの杖, ザキの杖, etc.)
+- 15 weapon types with modifier-based pricing (銅の剣 to せいぎのそろばん)
+- 12 shield types with modifier-based pricing (皮の盾 to 見切りの盾)
+- 27 scroll types with accurate buy/sell prices
+- 20 ring types with accurate buy/sell prices
+- 10 jar types with accurate buy/sell prices
 
 **State Management**: 
 - `this.items`: All item data from JSON
@@ -71,21 +72,23 @@ python3 -m http.server 8002
 
 **Price System**: 
 - Displays both buy and sell prices for all items
+- **Dynamic price search**: Real-time results as user types price values
 - Price search matches both buy and sell prices across all modifier/use variations
 - Color-coded price display (buy: purple, sell: blue)
-- Price filtering: separate buy-only and sell-only search options
+- Price filtering: separate buy-only and sell-only search options with checkboxes
+- Category-grouped price search results with identification sync
 
 **Category Navigation**:
-- Quick jump buttons for all 8 categories (草・種・杖・剣・盾・食べ物・巻物・腕輪)
+- Quick jump buttons for all 7 categories (草・杖・剣・盾・巻物・指輪・壺)
 - Smooth scrolling with visual highlight effects
 - Always accessible category navigation bar
 
 **Sorting**: Always displays items grouped by category, with sorting applied within each category.
 
-**Single Interface Design**: 
+**Dual-Tab Interface Design**: 
+- Two main tabs: "アイテム一覧" (Item List) and "値段検索" (Price Search)
 - Streamlined item list with search/sort/identification and dual price display
-- Integrated category jumping and price search functionality
-- Removed tab system for simplified navigation
+- Integrated category jumping and dynamic price search functionality
 
 **Modal System**: Two modals - item details (with buy/sell prices) and reset confirmation with safety prompts.
 
@@ -104,7 +107,17 @@ python3 -m http.server 8002
 
 **Mobile-First Design**: Optimized for iPhone with WebClip support, touch-friendly controls, and sticky navigation.
 
-**Category Order**: Fixed display order - 草, 種, 杖, 剣, 盾, 食べ物, 巻物, 腕輪.
+**Category Order**: Fixed display order - 草, 杖, 剣, 盾, 巻物, 指輪, 壺.
+
+**Page Navigation**:
+- "先頭に戻る" (scroll to top) buttons on both tabs
+- Smooth scrolling to page top functionality
+- Fixed positioning in bottom-right corner
+
+**Input Enhancement Components**:
+- `.input-with-clear`: Container for inputs with integrated clear buttons
+- `.clear-button`: Unified × button styling with hover/active states
+- Responsive positioning and touch-friendly sizing
 
 ## File Structure
 
@@ -131,20 +144,63 @@ The app uses `getCurrentPrice(item, priceType, modifier)` to retrieve prices:
 - For uses items: Uses keys "0", "1", "2", "3", "4", "5", "6"
 - Price search (`itemMatchesPrice`) checks all buy/sell price variations with filtering support
 
-## New Features Added
+## Current Implementation Features
+
+### Search & Filter System
+
+**Item List Search** (`#search-input`):
+- Real-time filtering on item name, reading (hiragana), category, and effect text
+- Integrated clear button (×) that appears when typing
+- Results maintain category grouping with internal sorting
+
+**Dynamic Price Search** (`#price-input`):
+- **Real-time search**: No search button required - results update as you type
+- Number input with integrated clear button
+- Empty input shows helpful guidance message
+- Results grouped by category similar to item list
+- Searches across all buy/sell price variations (modifiers/uses)
+
+### Advanced Synchronization
+
+**Bidirectional State Sync**:
+- Changes in item list instantly reflect in price search results
+- Changes in price search results instantly reflect in item list
+- Tab switching maintains search state and updates displays
+- localStorage persistence works across both interfaces
+
+**Method Architecture**:
+- `toggleIdentified()`: Standard identification toggle for item list
+- `toggleIdentifiedForPriceSearch()`: Specialized toggle that avoids re-rendering price results
+- `updatePriceSearchResults()`: Updates existing price search display without full re-render
+
+## Recent Features Added
+
+**Scroll to Top Buttons**:
+- Fixed position buttons on both item list and price search tabs
+- Smooth scroll animation to page top
+- Located in bottom-right corner with accent color styling
+- Touch-friendly design with hover effects
 
 **Category Jump System** (`jumpToCategory`): 
-- 8 category buttons for instant navigation
+- 7 category buttons for instant navigation
 - Smooth scrolling with visual feedback
 - Temporary highlight effect on destination
 
 **Enhanced Price Search**:
-- Buy-only and sell-only filtering checkboxes
-- Real-time search result updates
-- Comprehensive price matching across all variations
+- **Dynamic Real-time Search**: Results update instantly as user types, no search button needed
+- Buy-only and sell-only filtering checkboxes for targeted searches
+- Category-grouped results display matching item list structure
+- Comprehensive price matching across all modifier/use variations
+- Bidirectional sync with item list identification status
+
+**Advanced Input Features**:
+- **Clear Buttons**: Both search inputs feature "×" clear buttons that appear when typing
+- Unified styling and behavior across all input fields
+- Mobile-optimized touch targets and responsive design
 
 **Improved User Interface**:
 - Main item tap for identification toggle (UX improvement)
 - Dedicated detail buttons for modal access
 - Dual price display throughout the application
 - Mobile-optimized category navigation
+- Real-time synchronization between tabs (identification changes reflect immediately)
