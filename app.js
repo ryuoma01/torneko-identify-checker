@@ -5,6 +5,7 @@ class TornekoItemApp {
     this.identifiedItems = new Set();
     this.currentFilter = '';
     this.currentSort = 'name';
+    this.currentCategoryFilter = 'all'; // 'all'または特定のカテゴリ名
     this.init();
   }
 
@@ -98,13 +99,23 @@ class TornekoItemApp {
     document.getElementById('filter-buy').addEventListener('change', () => this.searchByPrice());
     document.getElementById('filter-sell').addEventListener('change', () => this.searchByPrice());
 
-    // カテゴリジャンプボタン
+    // カテゴリフィルターボタン
     document.querySelectorAll('.category-jump-btn').forEach(button => {
       button.addEventListener('click', (e) => {
         const category = e.target.dataset.category;
-        this.jumpToCategory(category);
+        this.filterByCategory(category);
       });
     });
+    
+    // 全表示ボタンを追加
+    const allButton = document.createElement('button');
+    allButton.className = 'category-jump-btn active';
+    allButton.textContent = '全て';
+    allButton.addEventListener('click', () => {
+      this.filterByCategory('all');
+    });
+    const categoryButtons = document.querySelector('.category-jump-buttons');
+    categoryButtons.insertBefore(allButton, categoryButtons.firstChild);
 
     // アイテム詳細モーダル関連
     const itemModal = document.getElementById('item-modal');
@@ -180,11 +191,18 @@ class TornekoItemApp {
     const itemsList = document.getElementById('items-list');
     
     // フィルタリング（アイテム名と読み仮名のみ）
-    const filteredItems = this.items.filter(item => {
+    let filteredItems = this.items.filter(item => {
       if (!this.currentFilter) return true;
       return item.name.toLowerCase().includes(this.currentFilter) ||
              item.reading.toLowerCase().includes(this.currentFilter);
     });
+    
+    // カテゴリフィルタリング
+    if (this.currentCategoryFilter !== 'all') {
+      filteredItems = filteredItems.filter(item => 
+        item.category === this.currentCategoryFilter
+      );
+    }
 
     // ソート処理
     const sortedItems = this.sortItems(filteredItems);
@@ -374,6 +392,16 @@ class TornekoItemApp {
     const priceInput = document.getElementById('price-input');
     if (priceInput.value.trim() !== '') {
       this.updatePriceSearchResults();
+    }
+    
+    // カテゴリフィルターが変更された場合は検索状態をクリア
+    if (this.currentCategoryFilter !== 'all') {
+      const searchInput = document.getElementById('search-input');
+      if (searchInput.value.trim() !== '') {
+        searchInput.value = '';
+        this.currentFilter = '';
+        this.toggleClearButton('search-clear-btn', '');
+      }
     }
   }
 
@@ -691,24 +719,26 @@ class TornekoItemApp {
     }
   }
 
-  // カテゴリにジャンプする
-  jumpToCategory(category) {
-    const categoryElement = document.getElementById(`category-${category}`);
-    if (categoryElement) {
-      // スムーズスクロールでカテゴリセクションにジャンプ
-      categoryElement.scrollIntoView({ 
-        behavior: 'smooth', 
-        block: 'start' 
-      });
-      
-      // ジャンプ先をハイライト（一時的な視覚効果）
-      categoryElement.style.transition = 'background-color 0.3s ease';
-      categoryElement.style.backgroundColor = 'rgba(128, 55, 89, 0.1)';
-      
-      setTimeout(() => {
-        categoryElement.style.backgroundColor = '';
-      }, 1000);
+  // カテゴリでフィルタリング
+  filterByCategory(category) {
+    this.currentCategoryFilter = category;
+    
+    // ボタンのactive状態を更新
+    document.querySelectorAll('.category-jump-btn').forEach(btn => {
+      btn.classList.remove('active');
+    });
+    
+    // クリックされたボタンをactiveに
+    const clickedButton = category === 'all' 
+      ? document.querySelector('.category-jump-btn') // 初回は全てボタン
+      : document.querySelector(`[data-category="${category}"]`);
+    
+    if (clickedButton) {
+      clickedButton.classList.add('active');
     }
+    
+    // アイテム一覧を再描画
+    this.renderItems();
   }
 }
 
