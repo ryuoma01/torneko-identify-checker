@@ -179,13 +179,11 @@ class TornekoItemApp {
   renderItems() {
     const itemsList = document.getElementById('items-list');
     
-    // フィルタリング（読み仮名検索も含む）
+    // フィルタリング（アイテム名と読み仮名のみ）
     const filteredItems = this.items.filter(item => {
       if (!this.currentFilter) return true;
       return item.name.toLowerCase().includes(this.currentFilter) ||
-             item.reading.toLowerCase().includes(this.currentFilter) ||
-             item.category.toLowerCase().includes(this.currentFilter) ||
-             item.effect.toLowerCase().includes(this.currentFilter);
+             item.reading.toLowerCase().includes(this.currentFilter);
     });
 
     // ソート処理
